@@ -26,5 +26,12 @@ namespace NetTest.Controllers
 
             return View();
         }
+
+        public ActionResult StoreFront()
+        {
+            ViewBag.Message = "Store front";
+
+            return View();
+        }
     }
 }
