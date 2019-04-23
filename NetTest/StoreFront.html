@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>InnStore</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+    <link rel="import" href="head.html">
+
+    <style>
+
+        body {
+            background-color: lightblue;
+        }
+
+        #innTitle {
+            font-family: verdana;
+            font-size: 40px;
+            font-weight: bold;
+            color: blue;
+            text-align: left;
+        }
+
+        p {
+            font-family: verdana;
+            font-size: 24px;
+        }
+
+        .button {
+            background-color: blue;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-family: verdana;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="innTitle">Innovation Store</h1>
+            <p class="lead">Welcome to the InnStore</p>
+            <div class="row">
+                <p><a href="/" class="button">Home</a></p>
+            </div>
+        </div>
+    </div>
+    <br><br>
+        <div class="container">
+            <div class="col-md-offset-2">
+                <span id="showAllGames" class="btn btn-primary">Show All Games</span>
+                <span id="CloseAllGames" class="btn btn-primary" onclick="CloseAllGames()">Close Table</span>
+                <div id="allGames" style="margin-top:16px;"></div>
+            </div>
+        </div>
+                <script>
+                    $("#showAllGames").click(function () {
+                        var d = "<table class='table table-striped'><tr><th>Game Id</th><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+                        service("getAllGames", "{}",
+                            function (response) {
+                                $.each(response, function (index, value) {
+                                    d += "<tr>" +
+                                        "<td>" + value.gameId + "</td>" +
+                                        "<td>" + value.name + "</td>" +
+                                        "<td>" + value.genre + "</td>" +
+                                        "<td>" + value.developer + "</td>" +
+                                        "<td>" + value.platform + "</td>" +
+                                        "<td>" + value.rating + "</td>" +
+                                        "</tr>";
+                                });
+                                $("#allGames").html(d + "</table>");
+                                $("#allGames").show();
+                            }, function (response) {
+                                alert("Error...");
+                                console.log(response);
+                            });
+                    });
+                    function CloseAllGames() {
+                        $("#allGames").hide();
+                    }
+
+                </script>
+                <br><br><br><br><br><br><br>
+                <footer>
+                    <div class="container">
+                        <div class ="col-md-offset-2 col-md-6 col-md-offset-0">
+                            <p>&copy; 2019 - My ASP.NET Application</p>
+                        </div>
+                    </div>
+                </footer>
+</body>
+</html>

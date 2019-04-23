@@ -342,27 +342,27 @@ namespace _385WebExample {
 
 		}
 
-		#endregion
-		// ========================================================================================
-		//					END - DO NOT CHANGE
-		// ========================================================================================
+        #endregion
+        // ========================================================================================
+        //					END - DO NOT CHANGE
+        // ========================================================================================
 
 
-		/* Example of a connection string that points to the AP database on the localdb SQL Server
+        /* Example of a connection string that points to the AP database on the localdb SQL Server
 		  <connectionStrings>
 			<add name="DefaultConnection" connectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AP;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True" providerName="System.Data.SqlClient" />
 		  </connectionStrings>
 
 		*/
 
-		// Methods
-		#region ######################################################################################################################################################## Methods
-		[WebMethod]
-		public void getVendorsByState(string state) {
-			addParam("@state", state);
-			send("spGetVendorsByState", serializeStyle.DATA_TABLE);
-		}
-		#endregion
+        // Methods
+        #region ######################################################################################################################################################## Methods
+        [WebMethod]
+        public void getAllGames()
+        {
+            send("spShowAllGames", serializeStyle.DATA_TABLE);
+        }
+        #endregion
 
-	}
+    }
 }
