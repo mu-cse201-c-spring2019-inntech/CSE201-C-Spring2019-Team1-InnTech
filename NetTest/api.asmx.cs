@@ -362,6 +362,20 @@ namespace _385WebExample {
         {
             send("spShowAllGames", serializeStyle.DATA_TABLE);
         }
+
+        [WebMethod]
+        public void getGameByName(string @searchName)
+        {
+            addParam("@name", @searchName);
+            send("spSearchByName", serializeStyle.DATA_TABLE);
+        }
+
+        [WebMethod]
+        public void getGameByGenre(string @searchGenre)
+        {
+            addParam("@genre", @searchGenre);
+            send("spSearchByGenre", serializeStyle.DATA_TABLE);
+        }
         #endregion
 
     }

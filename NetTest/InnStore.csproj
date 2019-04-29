@@ -205,10 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="api.asmx" />
-    <Content Include="App_Data\InnGameStore.ldf">
-      <DependentUpon>InnGameStore.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\InnGameStore.mdf" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -219,6 +215,17 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="head.html" />
+    <Content Include="images\game-image.png" />
+    <Content Include="images\image1.jpg" />
+    <Content Include="images\image10.jpg" />
+    <Content Include="images\image2.jpg" />
+    <Content Include="images\image3.jpg" />
+    <Content Include="images\image4.jpg" />
+    <Content Include="images\image5.jpg" />
+    <Content Include="images\image6.jpg" />
+    <Content Include="images\image7.jpg" />
+    <Content Include="images\image8.jpg" />
+    <Content Include="images\image9.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -315,6 +322,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\StoreFront\" />
   </ItemGroup>
   <ItemGroup>
