@@ -11,6 +11,7 @@ namespace NetTest.Controllers
         public ActionResult Index()
         {
             return View();
+
         }
 
         public ActionResult About()
@@ -23,6 +24,13 @@ namespace NetTest.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult StoreFront()
+        {
+            ViewBag.Message = "Store front";
 
             return View();
         }

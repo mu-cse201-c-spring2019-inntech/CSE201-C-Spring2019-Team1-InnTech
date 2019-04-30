@@ -27,10 +27,10 @@ namespace _385WebExample {
 	[System.ComponentModel.ToolboxItem(false)]
 	[System.Web.Script.Services.ScriptService]
 	public class api : System.Web.Services.WebService {
-		// ========================================================================================
-		//					START - DO NOT CHANGE
-		// ========================================================================================
-		private const string dbConfig = "DefaultConnection";
+        // ========================================================================================
+        //					START - DO NOT CHANGE
+        // ========================================================================================
+        private const string dbConfig = "DefaultConnection";
 		#region ######################################################################################################################################################## Database Stuff
 
 		private string conn = System.Configuration.ConfigurationManager.ConnectionStrings[dbConfig].ConnectionString;
@@ -342,27 +342,41 @@ namespace _385WebExample {
 
 		}
 
-		#endregion
-		// ========================================================================================
-		//					END - DO NOT CHANGE
-		// ========================================================================================
+        #endregion
+        // ========================================================================================
+        //					END - DO NOT CHANGE
+        // ========================================================================================
 
 
-		/* Example of a connection string that points to the AP database on the localdb SQL Server
+        /* Example of a connection string that points to the AP database on the localdb SQL Server
 		  <connectionStrings>
 			<add name="DefaultConnection" connectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AP;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True" providerName="System.Data.SqlClient" />
 		  </connectionStrings>
 
 		*/
 
-		// Methods
-		#region ######################################################################################################################################################## Methods
-		[WebMethod]
-		public void getVendorsByState(string state) {
-			addParam("@state", state);
-			send("spGetVendorsByState", serializeStyle.DATA_TABLE);
-		}
-		#endregion
+        // Methods
+        #region ######################################################################################################################################################## Methods
+        [WebMethod]
+        public void getAllGames()
+        {
+            send("spShowAllGames", serializeStyle.DATA_TABLE);
+        }
 
-	}
+        [WebMethod]
+        public void getGameByName(string @searchName)
+        {
+            addParam("@name", @searchName);
+            send("spSearchByName", serializeStyle.DATA_TABLE);
+        }
+
+        [WebMethod]
+        public void getGameByGenre(string @searchGenre)
+        {
+            addParam("@genre", @searchGenre);
+            send("spSearchByGenre", serializeStyle.DATA_TABLE);
+        }
+        #endregion
+
+    }
 }
