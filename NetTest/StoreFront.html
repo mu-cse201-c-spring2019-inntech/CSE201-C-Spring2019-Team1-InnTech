@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<!--
+    @Description:StoreFront html Page
+    @Author: Li Liu
+    @Date: 04/22/2019
+    -->
+<!DOCTYPE html>
 <html>
 <head>
     <title>InnStore</title>
@@ -40,7 +45,6 @@
             margin: 4px 2px;
             cursor: pointer;
         }
-
     </style>
 </head>
 <body>
@@ -54,98 +58,239 @@
         </div>
     </div>
     <br><br>
-        <div class="container">
-            <div class="col bg-transparent">
-                <img src="images/game-image.png" style="float:left" width="500" height="500"/>
-                <span id="showAllGames" class="btn btn-success" style="margin-top:225px;font-size:25px;">Show All Games</span>
-                <span id="CloseAllGames" class="btn btn-success" onclick="CloseAllGames()" style="margin-top:225px;font-size:25px;">Close Table</span>
-            </div>
-            <div id="allGames" style="margin-top:16px;"></div>
+    <div class="container">
+        <div class="col bg-transparent">
+            <img src="images/game-image.png" style="float:left" width="500" height="500" />
+            <span id="showAllGames" class="btn btn-success" style="margin-top:225px;font-size:25px;">Show All Games</span>
+            <span id="CloseAllGames" class="btn btn-success" onclick="CloseAllGames()" style="margin-top:225px;font-size:25px;">Close Table</span>
+            <span id="CloseAllGames" class="btn btn-success" onclick="CloseAllTable()" style="margin-top:225px;font-size:25px;">Close All Table</span>
         </div>
+        <div id="allGames" style="margin-top:16px;"></div>
+    </div>
     <div class="container">
         <div class="col bg-secondary">
-            <label for="searchByGameName" style="margin-left:100px;">Search By Name</label>
+            <label for="searchByGameName" style="margin-left:80px;">Search By Name</label>
             <input type="text" id="searchByGameName" placeholder="">
             <span id="btSearchByName" class="btn btn-success">Search</span>
 
-            <label for="searchByGenre" style="margin-left:100px;">Search By Genre</label>
+            <label for="searchByGenre" style="margin-left:80px;">Search By Genre</label>
             <input type="text" id="searchByGameGenre" placeholder="">
             <span id="btSearchByGenre" class="btn btn-success">Search</span>
+
+            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:60px;">Sort</button>
+            <div class="dropdown-menu" style="margin-left:955px;">
+                <a class="dropdown-item" onclick="SortByName()">Name</a>
+                <a class="dropdown-item" onclick="sortByRating()">Rating</a>
+                <a class="dropdown-item" onclick="sortByDeveloper()">Developer</a>
+                <a class="dropdown-item" onclick="sortByGenre()">Genre</a>
+            </div>
         </div>
         <div id="searchByNameTable" style="margin-top:16px;"></div>
         <div id="searchByGenreTable" style="margin-top:16px;"></div>
-        </div>
-        <script>
-            $("#btSearchByName").click(function () {
-                service("getGameByName", "{searchName: '" + $("#searchByGameName").val() + "'}",
-                    function (response) {
-                        $.each(response, function (index, value) {
-                            d = "<label for='gameDescription' style='font-size:30px;'>Game Description:</label>" + "<p id='gameDescription'>" + value.description + "</p>" +
-                                "<img src='images/image" + value.gameId + ".jpg' width='300' height='300'>";
-                        });
-                        $("#searchByNameTable").html(d);
-                        $("#searchByGenreTable").hide();
-                        $("#searchByNameTable").show();
-                    }, function (response) {
-                        alert("Error...");
-                        console.log(response);
-                    });
-            });
+        <div id="SortName" style="margin-top:16px;"></div>
+        <div id="SortRating" style="margin-top:16px;"></div>
+        <div id="SortDev" style="margin-top:16px;"></div>
+        <div id="SortGenre" style="margin-top:16px;"></div>
+    </div>
 
-            $("#btSearchByGenre").click(function () {
-                var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
-                service("getGameByGenre", "{searchGenre: '" + $("#searchByGameGenre").val() + "'}",
-                    function (response) {
-                        $.each(response, function (index, value) {
-                            d += "<tr>" +
-                                "<td>" + value.name + "</td>" +
-                                "<td>" + value.genre + "</td>" +
-                                "<td>" + value.developer + "</td>" +
-                                "<td>" + value.platform + "</td>" +
-                                "<td>" + value.rating + "</td>" +
-                                "</tr>";
-                        });
-                        $("#searchByGenreTable").html(d + "</table>");
-                        $("#searchByGenreTable").show();
-                        $("#searchByNameTable").hide();
-                    }, function (response) {
-                        alert("Error...");
-                        console.log(response);
+    <!--
+    @Description: Using Json to get data from database
+    @Author: Li Liu
+    @Date: 04/29/2019
+    -->
+    <script>
+        $("#btSearchByName").click(function () {
+            service("getGameByName", "{searchName: '" + $("#searchByGameName").val() + "'}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d = "<label for='gameDescription' style='font-size:30px;'>Game Description:</label>" + "<p id='gameDescription'>" + value.description + "</p>" +
+                            "<img src='images/image" + value.gameId + ".jpg' width='300' height='300'>";
                     });
-            });
+                    $("#searchByNameTable").html(d);
+                    $("#searchByGenreTable").hide();
+                    $("#searchByNameTable").show();
+                    $("#SortDev").hide();
+                    $("#SortRating").hide();
+                    $("#SortGenre").hide();
+                    $("#SortName").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
 
-            $("#showAllGames").click(function () {
-                var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
-                service("getAllGames", "{}",
-                    function (response) {
-                        $.each(response, function (index, value) {
-                            d += "<tr>" +
-                                "<td>" + value.name + "</td>" +
-                                "<td>" + value.genre + "</td>" +
-                                "<td>" + value.developer + "</td>" +
-                                "<td>" + value.platform + "</td>" +
-                                "<td>" + value.rating + "</td>" +
-                                "</tr>";
-                        });
-                        $("#allGames").html(d + "</table>");
-                        $("#allGames").show();
-                    }, function (response) {
-                        alert("Error...");
-                        console.log(response);
+        $("#btSearchByGenre").click(function () {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("getGameByGenre", "{searchGenre: '" + $("#searchByGameGenre").val() + "'}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
                     });
-            });
-            function CloseAllGames() {
-                $("#allGames").hide();
-            }
+                    $("#searchByGenreTable").html(d + "</table>");
+                    $("#searchByGenreTable").show();
+                    $("#searchByNameTable").hide();
+                    $("#SortDev").hide();
+                    $("#SortRating").hide();
+                    $("#SortGenre").hide();
+                    $("#SortName").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
 
-        </script>
-        <br><br><br><br><br><br><br>
-        <footer>
-            <div class="container">
-                <div class="col">
-                    <p>&copy; 2019 - Innovation Store</p>
-                </div>
+        $("#showAllGames").click(function () {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("getAllGames", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#allGames").html(d + "</table>");
+                    $("#allGames").show();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
+        function CloseAllGames() {
+            $("#allGames").hide();
+        }
+
+        
+        //@Description: Javascript codes
+        //@Author: Li Liu
+        //@Date: 05 / 06 / 2019
+        function CloseAllTable() {
+            $("#searchByGenreTable").hide();
+            $("#searchByNameTable").hide();
+            $("#SortDev").hide();
+            $("#SortRating").hide();
+            $("#SortGenre").hide();
+            $("#allGames").hide();
+            $("#SortName").hide();
+        }
+
+        function SortByName() {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByName", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#SortName").html(d + "</table>");
+                    $("#SortName").show();
+                    $("#searchByGenreTable").hide();
+                    $("#searchByNameTable").hide();
+                    $("#SortDev").hide();
+                    $("#SortRating").hide();
+                    $("#SortGenre").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        }
+        function sortByDeveloper() {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByDeveloper", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#SortDev").html(d + "</table>");
+                    $("#SortDev").show();
+                    $("#searchByGenreTable").hide();
+                    $("#searchByNameTable").hide();
+                    $("#SortName").hide();
+                    $("#SortRating").hide();
+                    $("#SortGenre").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        }
+        function sortByRating() {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByRating", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#SortRating").html(d + "</table>");
+                    $("#SortRating").show();
+                    $("#searchByGenreTable").hide();
+                    $("#searchByNameTable").hide();
+                    $("#SortDev").hide();
+                    $("#SortName").hide();
+                    $("#SortGenre").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        }
+        function sortByGenre() {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByGenre", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#SortGenre").html(d + "</table>");
+                    $("#SortGenre").show();
+                    $("#searchByGenreTable").hide();
+                    $("#searchByNameTable").hide();
+                    $("#SortDev").hide();
+                    $("#SortRating").hide();
+                    $("#SortName").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        }
+    </script>
+    <br><br><br><br><br><br><br>
+    <footer>
+        <div class="container">
+            <div class="col">
+                <p>&copy; 2019 - Innovation Store</p>
             </div>
-        </footer>
+        </div>
+    </footer>
 </body>
 </html>
