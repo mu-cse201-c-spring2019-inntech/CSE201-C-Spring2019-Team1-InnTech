@@ -1,0 +1,130 @@
+﻿<!--
+    @Description:Integration test for all sort function
+    @Author: Li Liu
+    @Date: 05/05/2019
+    -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Integration test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="import" href="head.html">
+</head>
+<body>
+    <div style="text-align:center;">
+        <h1>
+            This is integration test for Sort<h1>
+                <span id="test" class="btn btn-success">Sort by rating</span><br>
+                <span id="test2" class="btn btn-success">Sort by name</span><br>
+                <span id="test3" class="btn btn-success">Sort by developer</span><br>
+                <span id="test4" class="btn btn-success">Sort by genre</span><br>
+    </div>
+    <div id="testOutput">
+    </div>
+    <div id="testOutput2">
+    </div>
+    <div id="testOutput3">
+    </div>
+    <div id="testOutput4">
+    </div>
+    <script>
+        $("#test").click(function () {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByRating", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#testOutput").html(d + "</table>");
+                    $("#testOutput").show();
+                    $("#testOutput2").hide();
+                    $("#testOutput3").hide();
+                    $("#testOutput4").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
+
+        $("#test2").click(function () {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByName", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#testOutput2").html(d + "</table>");
+                    $("#testOutput2").show();
+                    $("#testOutput").hide();
+                    $("#testOutput3").hide();
+                    $("#testOutput4").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
+
+        $("#test3").click(function () {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByDeveloper", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#testOutput3").html(d + "</table>");
+                    $("#testOutput3").show();
+                    $("#testOutput").hide();
+                    $("#testOutput2").hide();
+                    $("#testOutput4").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
+        $("#test4").click(function () {
+            var d = "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>";
+            service("sortByGenre", "{}",
+                function (response) {
+                    $.each(response, function (index, value) {
+                        d += "<tr>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + value.genre + "</td>" +
+                            "<td>" + value.developer + "</td>" +
+                            "<td>" + value.platform + "</td>" +
+                            "<td>" + value.rating + "</td>" +
+                            "</tr>";
+                    });
+                    $("#testOutput4").html(d + "</table>");
+                    $("#testOutput4").show();
+                    $("#testOutput").hide();
+                    $("#testOutput2").hide();
+                    $("#testOutput3").hide();
+                }, function (response) {
+                    alert("Error...");
+                    console.log(response);
+                });
+        });
+    </script>
+</body>
+</html>

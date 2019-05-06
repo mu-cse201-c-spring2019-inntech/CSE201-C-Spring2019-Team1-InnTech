@@ -1,0 +1,52 @@
+﻿<!--
+    @Description:Integration test for search bar(Search By Genre)
+    @Author: Li Liu
+    @Date: 05/05/2019
+    -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Integration test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="import" href="head.html">
+</head>
+<body>
+    <div style="text-align:center;">
+        <h1>
+            This is integration test for search bar---Search By Genre<h1>
+                <span id="test" class="btn btn-success">Start Testing</span>
+    </div>
+    <div id="testOutput">
+    </div>
+    <script>
+
+        $("#test").click(function () {
+            var testInputCases = ["puzzle", "Platform", "Arcade", "Strategy"];
+            var d = "";
+            for (i = 0; i < testInputCases.length; i++) {
+                service("getGameByGenre", "{searchGenre: '" + testInputCases[i] + "'}",
+                    function (response) {
+                        $.each(response, function (index, value) {
+                            d += "<div class='alert alert-info'>This is test case for " + value.genre + "</div>" +
+                                "<table class='table table-striped'><tr><th>Game Name</th><th>Genre</th><th>Developer</th><th>Platform</th><th>Rating</th></tr>" +
+                                "<tr>" +
+                                "<td>" + value.name + "</td>" +
+                                "<td>" + value.genre + "</td>" +
+                                "<td>" + value.developer + "</td>" +
+                                "<td>" + value.platform + "</td>" +
+                                "<td>" + value.rating + "</td>" +
+                                "</tr></table><br>";
+                        });
+                        $("#testOutput").html(d);
+                    }, function (response) {
+                        alert("Error...");
+                        console.log(response);
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

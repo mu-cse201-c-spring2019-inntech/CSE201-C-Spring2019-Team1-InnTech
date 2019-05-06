@@ -13,23 +13,19 @@ using System.Xml;
 using System.Xml.Serialization;
 
 namespace _385WebExample {
-	/// <summary>
-	/// 
+
 	///		Author:			Mike Stahr
 	///		Created:		9-20-2017
 	///		Last Updated:	3-27-2019
 	///
 	///		Last Update:	Bug fix, added more flexibility in streaming data using send() method with style
-	/// </summary>
+
 
 	[WebService(Namespace = "http://tempuri.org/")]
 	[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 	[System.ComponentModel.ToolboxItem(false)]
 	[System.Web.Script.Services.ScriptService]
 	public class api : System.Web.Services.WebService {
-        // ========================================================================================
-        //					START - DO NOT CHANGE
-        // ========================================================================================
         private const string dbConfig = "DefaultConnection";
 		#region ######################################################################################################################################################## Database Stuff
 
@@ -340,22 +336,16 @@ namespace _385WebExample {
 
 			public PermissionError(int errorCode) : this("You do not have permission to use this service", errorCode) { }
 
-		}
+        }
 
         #endregion
-        // ========================================================================================
-        //					END - DO NOT CHANGE
-        // ========================================================================================
-
-
-        /* Example of a connection string that points to the AP database on the localdb SQL Server
-		  <connectionStrings>
-			<add name="DefaultConnection" connectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AP;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True" providerName="System.Data.SqlClient" />
-		  </connectionStrings>
-
-		*/
-
         // Methods
+
+        /* 
+                @Description:Those are website method, using stored procedure in database
+                @Author: Li Liu
+                @Date: 04/22/2019
+        */
         #region ######################################################################################################################################################## Methods
         [WebMethod]
         public void getAllGames()
@@ -376,6 +366,37 @@ namespace _385WebExample {
             addParam("@genre", @searchGenre);
             send("spSearchByGenre", serializeStyle.DATA_TABLE);
         }
+
+        /* 
+                @Description:Those are website method, using stored procedure in database
+                @Author: Li Liu
+                @Date: 05/06/2019
+        */
+
+        [WebMethod]
+        public void sortByRating()
+        {
+            send("spSortByRating", serializeStyle.DATA_TABLE);
+        }
+
+        [WebMethod]
+        public void sortByName()
+        {
+            send("spSortByName", serializeStyle.DATA_TABLE);
+        }
+
+        [WebMethod]
+        public void sortByDeveloper()
+        {
+            send("spSortByDeveloper", serializeStyle.DATA_TABLE);
+        }
+
+        [WebMethod]
+        public void sortByGenre()
+        {
+            send("spSortByGenre", serializeStyle.DATA_TABLE);
+        }
+
         #endregion
 
     }

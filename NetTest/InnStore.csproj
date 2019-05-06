@@ -222,6 +222,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="head.html" />
+    <Content Include="SortIntegrationTest.html" />
+    <Content Include="SearchByNameIntegrationTest.html" />
+    <Content Include="SearchByGenreIntegrationTest.html" />
     <Content Include="images\game-image.png" />
     <Content Include="images\image1.jpg" />
     <Content Include="images\image10.jpg" />
