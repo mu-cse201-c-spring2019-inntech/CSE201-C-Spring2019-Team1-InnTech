@@ -1,0 +1,12 @@
+gameId,name,genre,developer,platform,rating
+
+1,Doodle Jump,Platform,Lima Sky,Android/iOS,4.2
+2,Temple Run,Platform,Imangi Studios,Android/iOS,4.4
+3,FlappyBird,Arcade,dotGears,Android/iOS,4
+4,2048,Puzzle,Solebon LLC,Android/iOS,4.1
+5,Subway Surfers,Platform,Kiloo,Android/iOS,4.6
+6,Angry Birds,Strategy,Rovio Entertainment,Android/iOS,3.6
+7,Plants vs. Zombies,Strategy,PopCap Games,Android/iOS,4.8
+8,Tiny Wings,Arcade,Andreas Illiger,iOS,4.7
+9,Cut The Rope,Puzzle,ZeptoLab UK Limited,Android/iOS,4.8
+10,Clash of Clans,Strategy,Supercell,Android/iOS,4.7

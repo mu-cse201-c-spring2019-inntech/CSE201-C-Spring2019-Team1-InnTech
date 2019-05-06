@@ -1,11 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NetTest;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetTest.Controllers;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+
 
 
 namespace InnStoreUnitTester
